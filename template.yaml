@@ -10,11 +10,11 @@ Resources:
   # Define the consumer Lambda function and EventBridge rule
   SnapshotFunction:
     Type: AWS::Serverless::Function
-    Description: Invoked by EventBridge scheduled rule
     Properties:
+      Description: Invoked by EventBridge scheduled rule
       CodeUri: src/
       Handler: app.handler
-      Runtime: nodejs12.x
+      Runtime: nodejs18.x
       Timeout: 15
       MemorySize: 4096
       Layers:

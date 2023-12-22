@@ -1,0 +1,23 @@
+{
+  "name": "scheduled-website-screenshot-app",
+  "version": "1.0.0",
+  "description": "This repo contains a serverless application that periodically loads a website, takes a screenshot and saves the image and HTML to an Amazon S3 bucket.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "sam build --manifest package.json --template template.yaml",
+    "deploy": "sam deploy --guided"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "puppeteer": "^21.6.1"
+  },
+  "dependencies": {
+    "@sparticuz/chromium": "^119.0.2",
+    "aws-sdk": "^2.1525.0",
+    "puppeteer-core": "^21.6.1",
+    "uuid": "^9.0.1"
+  }
+}
