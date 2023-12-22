@@ -18,10 +18,10 @@ Resources:
       Timeout: 15
       MemorySize: 4096
       Layers:
-        - !Sub 'arn:aws:lambda:${AWS::Region}:764866452798:layer:chrome-aws-lambda:22'
+        - !Sub 'arn:aws:lambda:${AWS::Region}:764866452798:layer:chrome-aws-lambda:41'
       Environment:
         Variables:
-          TARGET_URL: 'https://serverlessland.com'
+          TARGET_URL: 'https://rohand.com'
           S3_BUCKET: !Ref S3Bucket
       Policies:
         - S3WritePolicy:
@@ -31,7 +31,7 @@ Resources:
         CheckWebsiteScheduledEvent:
           Type: Schedule
           Properties:
-            Schedule: rate(15 minutes)
+            Schedule: rate(60 minutes)
 
 Outputs:
   ConsumerFunction:
