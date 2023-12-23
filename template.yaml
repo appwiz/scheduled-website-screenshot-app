@@ -21,7 +21,7 @@ Resources:
         - !Sub 'arn:aws:lambda:${AWS::Region}:764866452798:layer:chrome-aws-lambda:41'
       Environment:
         Variables:
-          TARGET_URL: 'https://rohand.com'
+          TARGET_URL: 'https://news.ycombinator.com'
           S3_BUCKET: !Ref S3Bucket
       Policies:
         - S3WritePolicy:
