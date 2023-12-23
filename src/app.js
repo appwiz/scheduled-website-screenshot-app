@@ -31,6 +31,7 @@ exports.handler = async (event, context) => {
     await page.goto(pageURL, { waitUntil: 'networkidle0' })
     const buffer = await page.screenshot()
     const html = await page.content()
+    const pdf = await page.pdf({ displayHeaderFooter: true, printBackground: true })
 
     result = await page.title()
 
@@ -58,6 +59,17 @@ exports.handler = async (event, context) => {
       .promise()
 
     console.log('htmlUrl:', s3HtmlResult.Location)
+
+    const s3PdfResult = await s3
+      .upload({
+        Bucket: process.env.S3_BUCKET,
+        Key: `${s3Key}.pdf`,
+        Body: pdf,
+        ContentType: 'application/pdf'
+      })
+      .promise()
+    
+    console.log('pdfUrl:', s3PdfResult.Location)
     
     await page.close();
     await browser.close();
