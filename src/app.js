@@ -1,10 +1,7 @@
-/*! Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *  SPDX-License-Identifier: MIT-0
- */
-
 const { v4: uuidv4 } = require('uuid');
 const AWS = require('aws-sdk')
 const s3 = new AWS.S3({apiVersion: '2006-03-01'});
+const puppeteer = require("puppeteer-core");
 const chromium = require('@sparticuz/chromium');
 
 const pageURL = process.env.TARGET_URL
@@ -18,10 +15,10 @@ exports.handler = async (event, context) => {
   let browser = null;
 
   try {
-    browser = await chromium.puppeteer.launch({
+    browser = await puppeteer.launch({
       args: chromium.args,
       defaultViewport: chromium.defaultViewport,
-      executablePath: await chromium.executablePath,
+      executablePath: await chromium.executablePath(),
       headless: chromium.headless,
       ignoreHTTPSErrors: true,
     });
@@ -45,8 +42,7 @@ exports.handler = async (event, context) => {
         Bucket: process.env.S3_BUCKET,
         Key: `${s3Key}.png`,
         Body: buffer,
-        ContentType: 'image/png',
-        ACL: 'public-read'
+        ContentType: 'image/png'
       })
       .promise()
       
@@ -57,8 +53,7 @@ exports.handler = async (event, context) => {
         Bucket: process.env.S3_BUCKET,
         Key: `${s3Key}.html`,
         Body: html,
-        ContentType: 'text/html',
-        ACL: 'public-read'
+        ContentType: 'text/html'
       })
       .promise()
 
